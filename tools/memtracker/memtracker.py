@@ -64,9 +64,9 @@ def fmt_amount(amount):
     """Convert a size in KiB to a human readable string."""
     for suffix in "KM":
         if amount < 1024:
-            return "%.1f %si" % (amount, suffix)
+            return f"{amount:.1f} {suffix}i"
         amount /= 1024
-    return "%.2f Gi" % (amount)
+    return f"{amount:.2f} Gi"
 
 
 class Analyzer:
@@ -159,19 +159,23 @@ class Analyzer:
                 "guest_swap": guest["SwapTotal"] - guest["SwapFree"],
                 "host_unevictable": host["Unevictable"],
                 "guest_unevictable": guest["Unevictable"],
+                "total_gpu": host["i915_gem_objects bytes"] / 1024,
             }
             derived_info["total_incl_swap"] = (
                 derived_info["total_used"]
                 + derived_info["host_swap"]
                 + derived_info["guest_swap"]
             )
+            # Disable fstring lint check to maintain readability
+            # pylint: disable=consider-using-f-string
             print(
                 "total %s, "
                 "used %s (top: %s) (host %s (top: %s) guest %s (top: %s)), "
                 "avail %s (host %s guest %s), "
                 "balloon %s, "
                 "swap host %s guest %s, "
-                "unevictable host %s guest %s"
+                "unevictable host %s guest %s, "
+                "total gpu %s"
                 % (
                     # Total memory.
                     fmt_amount(derived_info["total"]),
@@ -196,8 +200,11 @@ class Analyzer:
                     # Unevictable memory.
                     fmt_amount(derived_info["host_unevictable"]),
                     fmt_amount(derived_info["guest_unevictable"]),
+                    # GPU memory.
+                    fmt_amount(derived_info["total_gpu"]),
                 )
             )
+            # pylint: enable=consider-using-f-string
             return derived_info
         return None
 
@@ -240,7 +247,7 @@ class CombinedTracker:
                     "Guest is inaccessible or not running; start Steam or try --host-only."
                 )
                 return 1
-            print("lsb_release = %s" % repr(lsb_release))
+            print(f"lsb_release = {repr(lsb_release)}")
             if "BOREALIS_STAGE=runtime_prod" in lsb_release:
                 print(
                     "Warning: Running on prod Borealis image; "
@@ -254,7 +261,7 @@ class CombinedTracker:
 
         print("Starting host collector process")
         with contextlib.ExitStack() as stack:
-            print("Logging to %s on the host." % self.host_log_path)
+            print(f"Logging to {self.host_log_path} on the host.")
             host_log = stack.enter_context(
                 open(self.host_log_path, "wt", encoding="utf-8")
             )
@@ -412,7 +419,10 @@ def main():
     parser.add_argument(
         "--host-log-path",
         help="Path to combined metrics logfile on host",
-        default="/home/chronos/user/Downloads/memtracker_metrics.json",
+        default=os.path.join(
+            os.path.dirname(os.path.realpath(__file__)),
+            "memtracker_metrics.json",
+        ),
         type=str,
     )
     parser.add_argument(

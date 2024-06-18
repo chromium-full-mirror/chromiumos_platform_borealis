@@ -23,7 +23,7 @@ backup=()
 options=()
 install=
 _borealis_branch_tracked=('main')
-_borealis_current_ref=('commit=5c269d0d87b3d62614d8910a9a95cd531c027d04')
+_borealis_current_ref=('commit=6e1cd0c1fc1520231060b4aceecf49e43a8ddafc')
 source=("vkbench::git+https://chromium.googlesource.com/chromiumos/platform/vkbench#${_borealis_current_ref}"
         'LICENSE')
 noextract=()

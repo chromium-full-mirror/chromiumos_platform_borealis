@@ -7,6 +7,7 @@ use std::collections::HashMap;
 use std::{fs::File, io::Write, thread, time};
 
 mod diffs;
+mod i915gemobjects;
 mod meminfo;
 mod swap;
 mod vmstat;
@@ -45,10 +46,11 @@ fn main() {
     loop {
         if cli.quick_stats {
             // Every time period, output some selected memory stats.
-            if let (Ok(meminfo), Ok(vmstat), Ok(swap)) = (
+            if let (Ok(meminfo), Ok(vmstat), Ok(swap), Ok(i915gemobjects)) = (
                 meminfo::MeminfoWatcher::current(),
                 vmstat::VmstatWatcher::current(),
                 swap::SwapWatcher::current(),
+                i915gemobjects::I915gemObjectsWatcher::current(),
             ) {
                 let mut stats = HashMap::new();
                 // Include selected values from /proc/meminfo.
@@ -90,6 +92,11 @@ fn main() {
                 }
                 // Include everything we collect about swap.
                 for (key, value) in &swap {
+                    stats.insert(key.clone(), value);
+                }
+
+                // Include everything we collect about i915 gem objects.
+                for (key, value) in &i915gemobjects {
                     stats.insert(key.clone(), value);
                 }
 

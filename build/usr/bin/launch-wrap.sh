@@ -115,6 +115,11 @@ function runtime_is_slr() {
   return $?
 }
 
+function device_is_intel() {
+  grep -F -q "Intel(R)" /proc/cpuinfo
+  return $?
+}
+
 function experimental_override_compat_tool() {
   # Override compat tool as Proton if the user has not specified any.
   if [[ -z "$(get_compat_tool.py --game-id "${SteamGameId}")" ]]; then
@@ -161,6 +166,26 @@ fi
 # to use ALSA device directly. This fallback is handled by wine.
 if runtime_is_proton; then
   export PULSE_SERVER=/dev/null
+fi
+
+if runtime_is_proton || runtime_is_slr; then
+  export STEAM_COMPAT_MOUNTS="${STEAM_COMPAT_MOUNTS}:/run/perfetto"
+fi
+
+# TODO(b/324943871#comment69): Remove once ANV shader compiler performance is
+# improved: https://gitlab.freedesktop.org/mesa/mesa/-/issues/9288
+#
+# DXVK creates a pipeline library compilation thread per HW thread by default.
+# On Intel devices, this results in the ANV shader compiler taking up too much
+# CPU time. We halve the max number of threads to give the game more CPU time.
+#
+# The minimum PROCESSOR_COUNT is expected to be 4. However, even if it is less
+# than that, there is no need to guard against MAX_DXVK_COMPILER_THREADS = 0
+# because a value of 0 prompts DXVK to use the maximum HW concurrency.
+if device_is_intel; then
+  PROCESSOR_COUNT="$(nproc --all)"
+  MAX_DXVK_COMPILER_THREADS="$(( "${PROCESSOR_COUNT}" / 2 ))"
+  export DXVK_CONFIG="dxvk.numCompilerThreads = ${MAX_DXVK_COMPILER_THREADS};"
 fi
 
 # Per-game overrides.
@@ -233,10 +258,6 @@ if [[ "${PRESSURE_VESSEL_DEBUG}" -eq 1 ]]; then
   export PRESSURE_VESSEL_LOG_INFO=1
   export PRESSURE_VESSEL_LOG_WITH_TIMESTAMP=1
   export G_MESSAGE_DEBUG=all
-fi
-
-if runtime_is_proton || runtime_is_slr; then
-  export STEAM_COMPAT_MOUNTS="${STEAM_COMPAT_MOUNTS}:/run/perfetto"
 fi
 
 # Dump environment prior to launching the game.

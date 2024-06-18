@@ -18,7 +18,7 @@ conflicts=('lib32-cros-mesa' 'lib32-mesa' 'lib32-vulkan-virtio')
 url="https://www.mesa3d.org"
 license=('custom')
 _borealis_branch_tracked=('upstream/main')
-_borealis_current_ref=('commit=c44e76676b7ff246b9d3455dcb1cd2f3a750535b')
+_borealis_current_ref=('commit=fd9f114d5a20aa948282af03d4f45917ecc57a56')
 source=("mesa::git+https://chromium.googlesource.com/chromiumos/third_party/mesa.git#${_borealis_current_ref}"
         'LICENSE'
         'llvm32.native')
@@ -69,7 +69,8 @@ build () {
     meson setup mesa _build \
         --native-file llvm32.native \
         -D b_ndebug=true \
-        -D buildtype=plain \
+        -D buildtype=release \
+        -D b_lto=true \
         --wrap-mode=nofallback \
         -D prefix=/usr \
         -D sysconfdir=/etc \

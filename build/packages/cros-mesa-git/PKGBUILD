@@ -20,7 +20,7 @@ conflicts=('cros-mesa' 'mesa' 'vulkan-virtio' 'vulkan-mesa-layer' 'mesa-libgl')
 url="https://www.mesa3d.org"
 license=('custom')
 _borealis_branch_tracked=('upstream/main')
-_borealis_current_ref=('commit=c44e76676b7ff246b9d3455dcb1cd2f3a750535b')
+_borealis_current_ref=('commit=fd9f114d5a20aa948282af03d4f45917ecc57a56')
 source=("mesa::git+https://chromium.googlesource.com/chromiumos/third_party/mesa.git#${_borealis_current_ref}"
         'LICENSE')
 md5sums=('SKIP'
@@ -72,7 +72,8 @@ build () {
 
     meson setup mesa _build \
        -D b_ndebug=true \
-       -D buildtype=plain \
+       -D buildtype=release \
+       -D b_lto=true \
        --wrap-mode=nofallback \
        -D prefix=/usr \
        -D sysconfdir=/etc \

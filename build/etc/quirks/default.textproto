@@ -66,6 +66,14 @@ sommelier {
   enable: FEATURE_CONTAINERIZE_WINDOWS
 }
 
+# Total War: MEDIEVAL II - Definitive Edition
+sommelier {
+  condition {
+    steam_game_id: 4700
+  }
+  enable: FEATURE_CONTAINERIZE_WINDOWS
+}
+
 # Sid Meier's Civilization V (Linux)
 sommelier {
   condition {
@@ -107,15 +115,6 @@ sommelier {
   enable: FEATURE_CONTAINERIZE_WINDOWS
 }
 
-# American Truck Simulator
-# Note: runtime must be set to Proton.
-sommelier {
-  condition {
-    steam_game_id: 270880
-  }
-  enable: FEATURE_CONTAINERIZE_WINDOWS
-}
-
 # Path of Exile
 sommelier {
   condition {
@@ -140,10 +139,27 @@ sommelier {
   enable: FEATURE_CONTAINERIZE_WINDOWS
 }
 
+# American Truck Simulator
+# Note: runtime must be set to Proton.
+sommelier {
+  condition {
+    steam_game_id: 270880
+  }
+  enable: FEATURE_CONTAINERIZE_WINDOWS
+}
+
 # Stellaris
 sommelier {
   condition {
     steam_game_id: 281990
+  }
+  enable: FEATURE_CONTAINERIZE_WINDOWS
+}
+
+# Tabletop Simulator
+sommelier {
+  condition {
+    steam_game_id: 286160
   }
   enable: FEATURE_CONTAINERIZE_WINDOWS
 }
@@ -196,6 +212,22 @@ sommelier {
   enable: FEATURE_CONTAINERIZE_WINDOWS
 }
 
+# Fishing Planet
+sommelier {
+  condition {
+    steam_game_id: 380600
+  }
+  enable: FEATURE_CONTAINERIZE_WINDOWS
+}
+
+# BioShock Remastered
+sommelier {
+  condition {
+    steam_game_id: 409710
+  }
+  enable: FEATURE_CONTAINERIZE_WINDOWS
+}
+
 # Stardew Valley
 sommelier {
   condition {
@@ -244,6 +276,14 @@ sommelier {
   enable: FEATURE_CONTAINERIZE_WINDOWS
 }
 
+# Swords & Souls: Neverseen
+sommelier {
+  condition {
+    steam_game_id: 679900
+  }
+  enable: FEATURE_CONTAINERIZE_WINDOWS
+}
+
 # Overcooked 2
 sommelier {
   condition {
@@ -268,6 +308,22 @@ sommelier {
   enable: FEATURE_CONTAINERIZE_WINDOWS
 }
 
+# Among Us
+sommelier {
+  condition {
+    steam_game_id: 945360
+  }
+  enable: FEATURE_CONTAINERIZE_WINDOWS
+}
+
+# People Playground
+sommelier {
+  condition {
+    steam_game_id: 1118200
+  }
+  enable: FEATURE_CONTAINERIZE_WINDOWS
+}
+
 # The Sims 4
 sommelier {
   condition {
@@ -276,12 +332,36 @@ sommelier {
   enable: FEATURE_X11_MOVE_WINDOWS
 }
 
+# Cats Organized Neatly
+sommelier {
+  condition {
+    steam_game_id: 1269340
+  }
+  enable: FEATURE_CONTAINERIZE_WINDOWS
+}
+
+# DEVOUR
+sommelier {
+  condition {
+    steam_game_id: 1274570
+  }
+  enable: FEATURE_CONTAINERIZE_WINDOWS
+}
+
 # Loop Hero
 sommelier {
   condition {
     steam_game_id: 1282730
   }
   enable: FEATURE_X11_MOVE_WINDOWS
+}
+
+# Disney Dreamlight Valley
+sommelier {
+  condition {
+    steam_game_id: 1401590
+  }
+  enable: FEATURE_CONTAINERIZE_WINDOWS
 }
 
 # Cookie Clicker
@@ -317,10 +397,26 @@ sommelier {
   enable: FEATURE_CONTAINERIZE_WINDOWS
 }
 
+# DAVE THE DIVER
+sommelier {
+  condition {
+    steam_game_id: 1868140
+  }
+  enable: FEATURE_CONTAINERIZE_WINDOWS
+}
+
 # Lethal Company
 sommelier {
   condition {
     steam_game_id: 1966720
+  }
+  enable: FEATURE_CONTAINERIZE_WINDOWS
+}
+
+# Magic the Gathering: Arena
+sommelier {
+  condition {
+    steam_game_id: 2141910
   }
   enable: FEATURE_CONTAINERIZE_WINDOWS
 }
