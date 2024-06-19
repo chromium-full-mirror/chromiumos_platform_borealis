@@ -100,12 +100,13 @@ def generate_metadata_xml(
         if package in cpe_by_package:
             known_tags = cpe_by_package[package]
             if known_tags:
+                # We have one or more CPE tags for this package.
                 for cpe in (
                     [known_tags] if isinstance(known_tags, str) else known_tags
                 ):
                     cpe_tags.add(f"{cpe}:{version}")
             else:
-                logger.info("No known CPE for package %s", package)
+                # This package has a null entry in cpe_mapping.json.
                 unknown_package_count += 1
         else:
             logger.warning("Need CPE mapping for %s", package)
@@ -159,11 +160,12 @@ def generate_metadata_xml(
         unknown_package_count,
     )
 
-    logger.info(
-        "%d packages were not found in cpe_mapping.json: %s",
-        len(todo),
-        " ".join(sorted(todo)),
-    )
+    if todo:
+        logger.info(
+            "%d packages were not found in cpe_mapping.json: %s",
+            len(todo),
+            " ".join(sorted(todo)),
+        )
 
     metadata_xml = (
         xml_prefix.encode("utf-8") + ElementTree.tostring(root) + b"\n"
