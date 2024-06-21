@@ -7,7 +7,7 @@ set -euo pipefail
 
 SCRIPT_PATH=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-: "${MEMTRACKER_INSTALL_PATH:=/home/chronos/user/Downloads}"
+: "${MEMTRACKER_INSTALL_PATH:=/home/chronos/user/MyFiles/Downloads}"
 
 host="$1"
 shift

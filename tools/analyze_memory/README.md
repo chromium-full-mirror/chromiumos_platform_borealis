@@ -21,11 +21,11 @@ somehow, then run it from `crosh`.  These instructions assume it's in your
 Downloads folder:
 
     # Run on host.
-    python3 /home/chronos/user/Downloads/analyze_cros_memory.py
+    python3 /home/chronos/user/MyFiles/Downloads/analyze_cros_memory.py
 
     # Run on Borealis guest.
     borealis-sh dd of=/home/chronos/analyze_cros_memory.py < \
-        /home/chronos/user/Downloads/analyze_cros_memory.py \
+        /home/chronos/user/MyFiles/Downloads/analyze_cros_memory.py \
     && borealis-sh --user=root python3 /home/chronos/analyze_cros_memory.py
 
 ## Example output
