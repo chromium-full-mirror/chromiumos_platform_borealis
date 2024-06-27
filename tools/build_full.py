@@ -33,9 +33,21 @@ logger = logging.getLogger("build_full")
 
 
 def get_borealis_dir():
-    """Path to the main borealis/ directory"""
-    # This script is in borealis/tools/__file__ so we want 2 levels up.
+    """Path to the main borealis-vm/ directory"""
+    # This script is in borealis-vm/tools/__file__ so we want 2 levels up.
     return os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+
+
+def get_borealis_private_dir():
+    """Path to the main borealis-private/ directory"""
+    # This script is in borealis/tools/__file__ so we want 3 levels up and
+    # append 'borealis-private'
+    return os.path.join(
+        os.path.dirname(
+            os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        ),
+        "borealis-private/",
+    )
 
 
 # TODO(hollingum): Currently many of the docker dependencies are subdirectories
@@ -682,7 +694,7 @@ def build_nvidia(
     )
 
     # Build nvidia-drivers package tarball from gentoo.
-    nvidia_folder = f"{get_borealis_dir()}/vendor/nvidia/"
+    nvidia_folder = f"{get_borealis_private_dir()}/vendor/nvidia/"
 
     # Prepare clean vendor archive.
     ch = chroot.Chroot(
@@ -710,7 +722,7 @@ def build_nvidia(
     ]
     build_arg += args.build_arg if args.build_arg else []
     build_full(
-        build_dir="vendor/nvidia",
+        build_dir=nvidia_folder,
         image_name=args.image_name,
         cros_path=args.cros,
         stage=target_stage,
