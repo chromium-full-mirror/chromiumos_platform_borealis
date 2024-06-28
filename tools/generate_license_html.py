@@ -40,6 +40,8 @@ CUSTOM_LICENSE_ALLOWLIST = {
     "lib32-gcc-libs": ["GPL-3.0-with-GCC-exception"],
     # LLVM-exception license provided in /usr/share/licenses/libcups
     "libcups": ["LLVM-exception"],
+    # X11 license provided in /usr/share/licenses/libgcrypt
+    "libgcrypt": ["X11"],
     # X11 license provided in /usr/share/licenses/libx11
     "libx11": ["X11"],
     # Various licenses provided in /usr/share/licenses/libxaw
