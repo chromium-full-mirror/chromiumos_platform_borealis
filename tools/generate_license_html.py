@@ -34,6 +34,8 @@ CUSTOM_LICENSE_ALLOWLIST = {
     # AFL-2.1 license provided in /usr/share/licenses/dbus/COPYING
     "dbus": ["AFL-2.1"],
     "lib32-dbus": ["AFL-2.1"],
+    # Various licenses provided in /usr/share/licenses/freetype2
+    "freetype2": ["FTL", "MIT-Modern-Variant"],
     # Exception provided in /usr/share/licenses/gcc-libs/RUNTIME.LIBRARY.EXCEPTION
     "gcc": ["GPL-3.0-with-GCC-exception"],
     "gcc-libs": ["GPL-3.0-with-GCC-exception"],
