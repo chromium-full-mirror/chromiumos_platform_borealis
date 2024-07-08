@@ -31,6 +31,8 @@ SHARED_TEMPLATE = os.path.join(
 # custom licenses in /usr/share/licenses/$pkgname.  Treat them as
 # custom licenses.
 CUSTOM_LICENSE_ALLOWLIST = {
+    # OFL-1.1 license provided in /usr/share/licenses/adobe-source-code-pro-fonts
+    "adobe-source-code-pro-fonts": ["OFL-1.1"],
     # AFL-2.1 license provided in /usr/share/licenses/dbus/COPYING
     "dbus": ["AFL-2.1"],
     "lib32-dbus": ["AFL-2.1"],
