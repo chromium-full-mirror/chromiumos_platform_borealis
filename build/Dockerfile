@@ -41,7 +41,7 @@ RUN chmod a+r /etc/pacman.conf* \
 #                                                                       builder
 #******************************************************************************
 # builder has tooling to do basic 32-bit and 64-bit builds.
-FROM initial as builder
+FROM initial AS builder
 RUN pacman -S --noconfirm \
         base-devel \
         clang \
@@ -64,14 +64,14 @@ RUN chgrp nobody /scratch /artifacts && \
 #******************************************************************************
 #                                                                  rust-builder
 #******************************************************************************
-FROM builder as rust-builder
+FROM builder AS rust-builder
 RUN pacman -S --noconfirm rust
 
 #******************************************************************************
 #                                                              perfetto-builder
 #******************************************************************************
 # perfetto-builder has libraries to build perfetto daemons.
-FROM builder as perfetto-builder
+FROM builder AS perfetto-builder
 WORKDIR /scratch
 # checkout a pinned Perfetto release available as git tag vNNN.N
 RUN git clone --depth 1 --branch v33.0 \
@@ -85,7 +85,7 @@ RUN tools/write_version_header.py --stdout > /artifacts/version && \
 #******************************************************************************
 # perfetto-build builds perfetto daemons.
 # TODO(davidriley): Convert this into a proper package.
-FROM perfetto-builder as perfetto-build
+FROM perfetto-builder AS perfetto-build
 WORKDIR /scratch/perfetto
 RUN tools/gn gen out/release \
         --args=" \
@@ -100,7 +100,7 @@ RUN tools/gn gen out/release \
 #                                                            perfetto-sdk-build
 #******************************************************************************
 # perfetto-sdk-build builds the perfetto sdk.
-FROM perfetto-builder as perfetto-sdk-build
+FROM perfetto-builder AS perfetto-sdk-build
 WORKDIR /scratch/perfetto
 RUN CFLAGS='-fdata-sections -ffunction-sections' meson /scratch/builddir \
     && ninja -C /scratch/builddir \
@@ -114,7 +114,7 @@ RUN version=$(cat /artifacts/version) \
 #                                                      lib32-perfetto-sdk-build
 #******************************************************************************
 # lib32-perfetto-sdk-build builds the lib32 perfetto sdk.
-FROM perfetto-builder as lib32-perfetto-sdk-build
+FROM perfetto-builder AS lib32-perfetto-sdk-build
 WORKDIR /scratch/perfetto
 RUN CXXFLAGS='-m32' CFLAGS='-fdata-sections -ffunction-sections -m32' \
     meson /scratch/builddir \
@@ -129,7 +129,7 @@ RUN version=$(cat /artifacts/version) \
 #                                                               wayland-builder
 #******************************************************************************
 # wayland-builder has prerequisites to build wayland
-FROM builder as wayland-builder
+FROM builder AS wayland-builder
 RUN pacman -Su --noconfirm \
     docbook-xsl \
     graphviz
@@ -137,7 +137,7 @@ RUN pacman -Su --noconfirm \
 #******************************************************************************
 #                                                                 wayland-build
 #******************************************************************************
-FROM wayland-builder as wayland-build
+FROM wayland-builder AS wayland-build
 COPY packages/cros-wayland-git/ /scratch/cros-wayland-git/
 WORKDIR /scratch/cros-wayland-git
 
@@ -152,7 +152,7 @@ RUN makepkg && cp *.zst "$ARTIFACTS"
 #                                                         lib32-wayland-builder
 #******************************************************************************
 # lib32-wayland-builder has prerequisites to build lib32-wayland
-FROM builder as lib32-wayland-builder
+FROM builder AS lib32-wayland-builder
 COPY --from=wayland-build /artifacts/*.zst pkgs/
 RUN pacman -U --noconfirm pkgs/*.zst \
     && pacman -S --noconfirm \
@@ -166,7 +166,7 @@ RUN pacman -U --noconfirm pkgs/*.zst \
 #******************************************************************************
 #                                                           lib32-wayland-build
 #******************************************************************************
-FROM lib32-wayland-builder as lib32-wayland-build
+FROM lib32-wayland-builder AS lib32-wayland-build
 COPY packages/lib32-cros-wayland-git/ /scratch/lib32-cros-wayland-git/
 WORKDIR /scratch/lib32-cros-wayland-git
 
@@ -181,7 +181,7 @@ RUN makepkg && cp *.zst "$ARTIFACTS"
 #                                                                   gfx-builder
 #******************************************************************************
 # gfx-builder has prerequisites to build the graphics stack.
-FROM builder as gfx-builder
+FROM builder AS gfx-builder
 # Install packages already built.
 WORKDIR /scratch
 COPY --from=lib32-wayland-build /artifacts/*.zst pkgs/
@@ -212,7 +212,7 @@ RUN pacman -U --noconfirm pkgs/*.zst \
 #                                                                  mesa-builder
 #******************************************************************************
 # mesa-builder has prerequisites to build mesa.
-FROM gfx-builder as mesa-builder
+FROM gfx-builder AS mesa-builder
 RUN pacman -S --noconfirm \
         libglvnd \
         ocl-icd \
@@ -226,7 +226,7 @@ COPY --from=perfetto-sdk-build /artifacts/perfetto.pc /usr/lib64/pkgconfig/
 #                                                                    mesa-build
 #******************************************************************************
 # mesa-build builds cros-mesa-git package.
-FROM mesa-builder as mesa-build
+FROM mesa-builder AS mesa-build
 
 # Set to 1 to build native drivers, for borealis_chroot.
 ARG BUILD_NATIVE_DRIVERS=0
@@ -247,7 +247,7 @@ RUN cp *.zst "$ARTIFACTS"
 #                                                            lib32-mesa-builder
 #******************************************************************************
 # lib32-mesa-builder has prerequisites to build lib32-mesa.
-FROM gfx-builder as lib32-mesa-builder
+FROM gfx-builder AS lib32-mesa-builder
 
 # Install packages already built.
 WORKDIR /scratch
@@ -284,7 +284,7 @@ COPY --from=lib32-perfetto-sdk-build \
 #                                                              lib32-mesa-build
 #******************************************************************************
 # lib32-mesa-build builds 32-bit lib32-cros-mesa-git package.
-FROM lib32-mesa-builder as lib32-mesa-build
+FROM lib32-mesa-builder AS lib32-mesa-build
 
 # Set to 1 to build native drivers, for borealis_chroot.
 ARG BUILD_NATIVE_DRIVERS=0
@@ -305,7 +305,7 @@ RUN cp *.zst "$ARTIFACTS"
 #                                                              xwayland-builder
 #******************************************************************************
 # xwayland-builder has prerequisites to build xwayland.
-FROM gfx-builder as xwayland-builder
+FROM gfx-builder AS xwayland-builder
 
 # Install packages already built.
 WORKDIR /scratch
@@ -332,7 +332,7 @@ COPY include/linux/virtwl.h /usr/include/linux/
 #                                                                xwayland-build
 #******************************************************************************
 # xwayland-build builds cros-xwayland package.
-FROM xwayland-builder as xwayland-build
+FROM xwayland-builder AS xwayland-build
 
 # Sync package.
 COPY packages/cros-xwayland/ /scratch/cros-xwayland/
@@ -354,7 +354,7 @@ RUN cp *.zst "$ARTIFACTS"
 #******************************************************************************
 # waffle is used for apitrace, glbench and should be included by default.
 # waffle-builder has prerequisites to build waffle.
-FROM gfx-builder as waffle-builder
+FROM gfx-builder AS waffle-builder
 
 # Install packages already built.
 WORKDIR /scratch
@@ -370,7 +370,7 @@ RUN pacman -U --noconfirm pkgs/*.zst \
 #                                                                  waffle-build
 #******************************************************************************
 # waffle-build builds waffle and lib32-waffle packages.
-FROM waffle-builder as waffle-build
+FROM waffle-builder AS waffle-build
 
 # Sync packages.
 COPY packages/waffle/ /scratch/waffle/
@@ -399,7 +399,7 @@ RUN cp /scratch/waffle/*.zst /scratch/lib32-waffle/*.zst "$ARTIFACTS"
 #******************************************************************************
 # apitrace is used for development but should be included by default.
 # apitrace-builder has prerequisites to build apitrace.
-FROM gfx-builder as apitrace-builder
+FROM gfx-builder AS apitrace-builder
 
 # Install packages already built.
 WORKDIR /scratch
@@ -413,7 +413,7 @@ RUN pacman -U --noconfirm pkgs/*.zst \
 #                                                                apitrace-build
 #******************************************************************************
 # apitrace-build builds cros-apitrace-git and lib32-cros-apitrace-git packages.
-FROM apitrace-builder as apitrace-build
+FROM apitrace-builder AS apitrace-build
 
 # Sync packages.
 COPY packages/cros-apitrace-git/ /scratch/cros-apitrace-git/
@@ -441,7 +441,7 @@ RUN cp /scratch/cros-apitrace-git/*.zst /scratch/lib32-cros-apitrace-git/*.zst \
 #                                                          apitrace-win-builder
 #******************************************************************************
 # Currently this just ensures that p7zip is installed
-FROM builder as apitrace-win-builder
+FROM builder AS apitrace-win-builder
 RUN pacman -S --noconfirm --disable-download-timeout \
     p7zip
 
@@ -452,7 +452,7 @@ RUN pacman -S --noconfirm --disable-download-timeout \
 # The renaming of the directory is so that later stages which depend
 # on this one can use a defined name to refer to both 32 and 64-bit builds
 # of Windows apitrace
-FROM apitrace-win-builder as apitrace-win-build
+FROM apitrace-win-builder AS apitrace-win-build
 WORKDIR /scratch
 ENV APITRACE_WIN_VER=10.0
 ENV APITRACE_W32_NAME=apitrace-${APITRACE_WIN_VER}-win32.7z
@@ -474,7 +474,7 @@ RUN find . -name "*.pdb" -delete
 #******************************************************************************
 #                                                          gfxreconstruct-build
 #******************************************************************************
-FROM gfx-builder as gfxreconstruct-build
+FROM gfx-builder AS gfxreconstruct-build
 
 COPY packages/cros-gfxreconstruct/ /scratch/cros-gfxreconstruct/
 # Allow makepkg to be run as nobody.
@@ -488,7 +488,7 @@ RUN cp /scratch/cros-gfxreconstruct/*.zst "$ARTIFACTS"
 #******************************************************************************
 #                                                    lib32-gfxreconstruct-build
 #******************************************************************************
-FROM gfx-builder as lib32-gfxreconstruct-build
+FROM gfx-builder AS lib32-gfxreconstruct-build
 
 COPY packages/lib32-cros-gfxreconstruct/ /scratch/lib32-cros-gfxreconstruct/
 # Allow makepkg to be run as nobody.
@@ -504,14 +504,14 @@ RUN cp /scratch/lib32-cros-gfxreconstruct/*.zst "$ARTIFACTS"
 #******************************************************************************
 # Similar to Windows apitrace builder, this ensures that unzip is installed
 # We will use this to extract the Windows gfxreconstruct binaries
-FROM builder as gfxreconstruct-win-builder
+FROM builder AS gfxreconstruct-win-builder
 RUN pacman -S --noconfirm --disable-download-timeout \
     unzip
 
 #******************************************************************************
 #                                                      gfxreconstruct-win-build
 #******************************************************************************
-FROM gfxreconstruct-win-builder as gfxreconstruct-win-build
+FROM gfxreconstruct-win-builder AS gfxreconstruct-win-build
 ENV GFXRECONSTRUCT_WIN_VERSION=v0.9.18
 ADD http://commondatastorage.googleapis.com/chromeos-localmirror/distfiles/gfxreconstruct-${GFXRECONSTRUCT_WIN_VERSION}-windows-msvc.zip \
  gfxreconstruct.zip
@@ -522,7 +522,7 @@ RUN mv gfxreconstruct-${GFXRECONSTRUCT_WIN_VERSION} gfxreconstruct-win
 #                                                               glbench-builder
 #******************************************************************************
 # glbench-builder has prerequisites to build glbench.
-FROM gfx-builder as glbench-builder
+FROM gfx-builder AS glbench-builder
 
 # Install packages already built.
 WORKDIR /scratch
@@ -538,7 +538,7 @@ RUN pacman -U --noconfirm pkgs/*.zst \
 #                                                                 glbench-build
 #******************************************************************************
 # glbench-build builds glbench-git package.
-FROM glbench-builder as glbench-build
+FROM glbench-builder AS glbench-build
 
 # Sync package.
 COPY packages/glbench-git/ /scratch/glbench-git/
@@ -556,7 +556,7 @@ RUN cp *.zst "$ARTIFACTS"
 #                                                                    xray-build
 #******************************************************************************
 # xray-build builds xray-git package.
-FROM glbench-builder as xray-build
+FROM glbench-builder AS xray-build
 
 # Sync package.
 COPY packages/xray-git/ /scratch/xray-git/
@@ -574,7 +574,7 @@ RUN cp *.zst "$ARTIFACTS"
 #                                                               vkbench-builder
 #******************************************************************************
 # vkbench-builder has prerequisites to build vkbench.
-FROM glbench-builder as vkbench-builder
+FROM glbench-builder AS vkbench-builder
 
 # Install packages already built.
 WORKDIR /scratch
@@ -589,7 +589,7 @@ RUN pacman -U --noconfirm pkgs/*.zst \
 #                                                                 vkbench-build
 #******************************************************************************
 # vkbench-build builds vkbench-git package.
-FROM vkbench-builder as vkbench-build
+FROM vkbench-builder AS vkbench-build
 
 # Sync package.
 COPY packages/vkbench-git/ /scratch/vkbench-git/
@@ -606,7 +606,7 @@ RUN cp *.zst "$ARTIFACTS"
 #******************************************************************************
 #                                                                   cpuid-build
 #******************************************************************************
-FROM builder as cpuid-build
+FROM builder AS cpuid-build
 
 # Sync package.
 COPY packages/cpuid/ /scratch/cpuid/
@@ -622,7 +622,7 @@ RUN cp *.zst "$ARTIFACTS"
 #                                                                  deqp-builder
 #******************************************************************************
 # deqp-builder has prerequisites to build deqp.
-FROM gfx-builder as deqp-builder
+FROM gfx-builder AS deqp-builder
 COPY --from=waffle-build /artifacts/*.zst pkgs/
 RUN pacman -U --noconfirm pkgs/*.zst \
     && pacman -S --noconfirm cargo
@@ -631,7 +631,7 @@ RUN pacman -U --noconfirm pkgs/*.zst \
 #                                                                    deqp-build
 #******************************************************************************
 # build deqp-vk and deqp-runner binaries
-FROM deqp-builder as deqp-build
+FROM deqp-builder AS deqp-build
 ARG COMMIT_deqp
 ARG COMMIT_spirv_tools
 ARG COMMIT_spirv_headers
@@ -684,7 +684,7 @@ RUN sh -c 'cargo install deqp-runner --version=$VERSION_deqp_runner'
 #                                                             sommelier-builder
 #******************************************************************************
 # sommelier-builder has prerequisites to build sommelier.
-FROM builder as sommelier-builder
+FROM builder AS sommelier-builder
 
 # Install packages already built.
 WORKDIR /scratch
@@ -707,7 +707,7 @@ COPY --from=perfetto-sdk-build /artifacts/perfetto.pc /usr/lib64/pkgconfig/
 #                                                               sommelier-build
 #******************************************************************************
 # sommelier-build builds sommelier package.
-FROM sommelier-builder as sommelier-build
+FROM sommelier-builder AS sommelier-build
 
 # Sync package.
 COPY packages/sommelier-git/ /scratch/sommelier-git/
@@ -727,7 +727,7 @@ RUN cp *.zst "$ARTIFACTS"
 #                                                                piglit-builder
 #******************************************************************************
 # piglit-builder has prerequisites to build piglit.
-FROM gfx-builder as piglit-builder
+FROM gfx-builder AS piglit-builder
 
 ARG PIGLIT_COMMIT
 # Install packages already built.
@@ -753,7 +753,7 @@ RUN git clone https://gitlab.freedesktop.org/mesa/piglit.git \
 #                                                                  piglit-build
 #******************************************************************************
 # piglit-build builds cros-piglit packages.
-FROM piglit-builder as piglit-build
+FROM piglit-builder AS piglit-build
 
 ARG VERSION_deqp_runner
 RUN sh -c 'cargo install deqp-runner --version=$VERSION_deqp_runner'
@@ -774,7 +774,7 @@ RUN cmake \
 #                                                                  vkmark-build
 #******************************************************************************
 # vkmark-build installs vkmark and dependency packages.
-FROM gfx-builder as vkmark-build
+FROM gfx-builder AS vkmark-build
 
 RUN rm /var/cache/pacman/pkg/*.zst \
     && pacman -Sw --noconfirm \
@@ -788,7 +788,7 @@ RUN rm /var/cache/pacman/pkg/*.zst \
 #******************************************************************************
 # tast-binary-build collects test binaries we built in Docker but not
 # preinstalled in borealis runtime.
-FROM initial as tast-binary-build
+FROM initial AS tast-binary-build
 
 WORKDIR /scratch
 COPY --from=piglit-build /artifacts/ piglit/
@@ -817,7 +817,7 @@ RUN find glbench -name "*.zst" -exec tar -xvf {} -C glbench \; \
 # breakpad-build builds breakpad tools.  Not included by default to avoid
 # unneccesary builds.  Build breakpad-build and then use "docker cp" to copy
 # the artifacts out of /scratch/install and to a VM.
-FROM builder as breakpad-build
+FROM builder AS breakpad-build
 WORKDIR /scratch
 RUN git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 ENV PATH=/scratch/depot_tools:$PATH
@@ -831,7 +831,7 @@ RUN ./configure && make -j && make install prefix=/scratch/install
 #                                                          gamemodetest-builder
 #******************************************************************************
 # gamemodetest-builder has prerequisites to build gamemodetest.
-FROM gfx-builder as gamemodetest-builder
+FROM gfx-builder AS gamemodetest-builder
 # The mesa packages built above need to be installed prior to any other
 # dependencies are fulfilled from the apt repos.
 WORKDIR /scratch
@@ -848,7 +848,7 @@ COPY gamemodetest /scratch/gamemodetest
 #                                                            gamemodetest-build
 #******************************************************************************
 # gamemodetest-build builds gamemodtest test program.
-FROM gamemodetest-builder as gamemodetest-build
+FROM gamemodetest-builder AS gamemodetest-build
 WORKDIR /scratch/gamemodetest
 RUN make all
 
@@ -856,7 +856,7 @@ RUN make all
 #                                                            results-db-builder
 #******************************************************************************
 # results-db-builder has prerequisites to build results-db.
-FROM builder as results-db-builder
+FROM builder AS results-db-builder
 WORKDIR /scratch
 # TODO(davidriley): Mount from build_full.py
 RUN git clone https://chromium.googlesource.com/chromiumos/config
@@ -865,7 +865,7 @@ RUN git clone https://chromium.googlesource.com/chromiumos/platform/graphics
 #******************************************************************************
 #                                                              results-db-build
 #******************************************************************************
-FROM results-db-builder as results-db-build
+FROM results-db-builder AS results-db-build
 WORKDIR /scratch
 RUN cp -r \
     config/python \
@@ -882,7 +882,7 @@ RUN mkdir "$ARTIFACTS"/bin \
 #                                                             audiotest-builder
 #******************************************************************************
 # audiotest-builder has prerequisites to build audiotest.
-FROM builder as audiotest-builder
+FROM builder AS audiotest-builder
 WORKDIR /scratch
 RUN pacman -Syu --noconfirm \
     alsa-lib
@@ -891,7 +891,7 @@ RUN pacman -Syu --noconfirm \
 #                                                               audiotest-build
 #******************************************************************************
 # audiotest-build builds loopback-latency and copies cyclic bench script
-FROM audiotest-builder as audiotest-build
+FROM audiotest-builder AS audiotest-build
 COPY packages/audiotest-git /scratch/audiotest-git
 WORKDIR /scratch/audiotest-git
 
@@ -905,7 +905,7 @@ RUN makepkg && cp *.zst "$ARTIFACTS"
 #******************************************************************************
 #                                                                  xtrace-build
 #******************************************************************************
-FROM builder as xtrace-build
+FROM builder AS xtrace-build
 COPY packages/xtrace-git /scratch/xtrace-git
 WORKDIR /scratch/xtrace-git
 
@@ -920,7 +920,7 @@ RUN cp *.zst "$ARTIFACTS"
 #******************************************************************************
 #                                                                     vdf-build
 #******************************************************************************
-from builder as vdf-build
+FROM builder AS vdf-build
 
 # Build dependencies needed by vdf, not required for release.
 RUN pacman -S --noconfirm \
@@ -942,7 +942,7 @@ RUN cp *.zst "$ARTIFACTS"
 #******************************************************************************
 # setup_bitmaps-build builds setup_bitmaps
 # TODO(b/244271286): add tests.
-FROM builder as setup_bitmaps-build
+FROM builder AS setup_bitmaps-build
 
 COPY setup_bitmaps /scratch/setup_bitmaps/
 WORKDIR /scratch/setup_bitmaps
@@ -951,19 +951,19 @@ RUN make all
 #******************************************************************************
 #                                                      detailed-metrics-builder
 #******************************************************************************
-FROM rust-builder as detailed-metrics-builder
+FROM rust-builder AS detailed-metrics-builder
 COPY detailed_metrics /scratch/detailed_metrics
 
 #******************************************************************************
 #                                                        detailed-metrics-build
 #******************************************************************************
-FROM detailed-metrics-builder as detailed-metrics-build
+FROM detailed-metrics-builder AS detailed-metrics-build
 RUN cargo install --path /scratch/detailed_metrics --root /usr
 
 #******************************************************************************
 #                                                           insight-layer-build
 #******************************************************************************
-FROM gfx-builder as insight-layer-build
+FROM gfx-builder AS insight-layer-build
 
 COPY insight_layer /scratch/insight_layer
 WORKDIR /scratch/insight_layer
@@ -972,7 +972,7 @@ RUN make
 #******************************************************************************
 #                                                                steamcmd-build
 #******************************************************************************
-FROM builder as steamcmd-build
+FROM builder AS steamcmd-build
 COPY packages/steamcmd /scratch/steamcmd
 WORKDIR /scratch/steamcmd
 
@@ -988,14 +988,14 @@ RUN cp *.zst "$ARTIFACTS"
 #                                                            cros-trace-builder
 #******************************************************************************
 # cros-trace-builder has prerequisites to build cros-trace
-FROM builder as cros-trace-builder
+FROM builder AS cros-trace-builder
 RUN pacman -S --noconfirm protobuf
 
 #******************************************************************************
 #                                                              cros-trace-build
 #******************************************************************************
 # cros-trace-build builds cros-trace package
-FROM cros-trace-builder as cros-trace-build
+FROM cros-trace-builder AS cros-trace-build
 COPY packages/cros-trace-git /scratch/cros-trace-git
 WORKDIR /scratch/cros-trace-git
 
@@ -1010,7 +1010,7 @@ RUN makepkg && cp *.zst "$ARTIFACTS"
 #                                                                weston-builder
 #******************************************************************************
 # weston-builder has prerequisites to build weston
-FROM gfx-builder as weston-builder
+FROM gfx-builder AS weston-builder
 COPY --from=mesa-build /artifacts/*.zst pkgs/
 COPY --from=xwayland-build /artifacts/*.zst pkgs/
 RUN pacman -U --noconfirm pkgs/*.zst \
@@ -1034,7 +1034,7 @@ RUN pacman -U --noconfirm pkgs/*.zst \
 #                                                                  weston-build
 #******************************************************************************
 # weston-build builds weston and its test clients
-FROM weston-builder as weston-build
+FROM weston-builder AS weston-build
 COPY packages/weston /scratch/weston
 WORKDIR /scratch/weston
 
@@ -1369,7 +1369,7 @@ RUN cp /usr/share/zoneinfo/UTC /etc/localtime
 #                                                               runtime_systemd
 #******************************************************************************
 # The runtime image as systemd running as PID 1, instead of maitred
-FROM runtime as runtime_systemd
+FROM runtime AS runtime_systemd
 # Enable maitred for bootup
 RUN mv /scratch/systemd/init /sbin/ \
     && systemctl enable maitred vshd \
@@ -1385,7 +1385,7 @@ RUN mv /scratch/systemd/init /sbin/ \
 #******************************************************************************
 # The production image merely adds some metadata, and cleans up development
 # headers and static libraries, and the package cache.
-FROM runtime as runtime_prod
+FROM runtime AS runtime_prod
 # Remove systemd from production image
 RUN rm -rf /scratch/systemd \
     && /usr/bin/stamp-lsb-release.sh --prod runtime_prod
@@ -1395,7 +1395,7 @@ RUN rm -rf /scratch/systemd \
 # The test image adds a few useful packages and different metadata
 # from the production one.
 # gfxreconstruct - Vulkan tracing
-FROM runtime as runtime_test
+FROM runtime AS runtime_test
 COPY --from=gfxreconstruct-build /artifacts/*.zst pkgs/
 COPY --from=xtrace-build /artifacts/*.zst pkgs/
 COPY --from=steamcmd-build /artifacts/*.zst pkgs/
@@ -1448,7 +1448,7 @@ RUN /usr/bin/stamp-lsb-release.sh runtime_test
 # The debug image sets everything needed to build mesa in the VM and connect
 # with a remote debugger (VSCode's Remote Development extension + SSH works
 # very well).
-FROM runtime_test as runtime_debug
+FROM runtime_test AS runtime_debug
 # Flag this as a debug build, so stamp-lsb-release.sh won't delete /usr/include
 RUN echo "BOREALIS_DEBUG=1" >> /etc/lsb-release
 RUN pacman -S --noconfirm \
