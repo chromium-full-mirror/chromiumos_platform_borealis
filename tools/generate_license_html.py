@@ -42,6 +42,8 @@ CUSTOM_LICENSE_ALLOWLIST = {
     "gcc": ["GPL-3.0-with-GCC-exception"],
     "gcc-libs": ["GPL-3.0-with-GCC-exception"],
     "lib32-gcc-libs": ["GPL-3.0-with-GCC-exception"],
+    # MIT, SGI-B-2.0 licenses provided in /usr/share/licenses/glu
+    "glu": ["SGI-B-2.0"],
     # LLVM-exception license provided in /usr/share/licenses/libcups
     "libcups": ["LLVM-exception"],
     # X11 license provided in /usr/share/licenses/libgcrypt

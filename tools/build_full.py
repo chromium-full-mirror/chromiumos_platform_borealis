@@ -319,6 +319,7 @@ def generate_licenses(
         ]
         subprocess.check_call(cmd)
 
+        # TODO(b/353582114) Remove glu/license.txt when shipped with Arch.
         # TODO(b/313945837) Remove Linux-syscall-note.txt when shipped with Arch.
         # TODO(b/328466486) Remove systemd/MIT-0.txt when shipped with Arch.
         # TODO(b/330368367) Remove python-dnslib/LICENSE when shipped with Arch.
