@@ -46,8 +46,14 @@ CUSTOM_LICENSE_ALLOWLIST = {
     "libcups": ["LLVM-exception"],
     # X11 license provided in /usr/share/licenses/libgcrypt
     "libgcrypt": ["X11"],
+    # MIT-open-group license provided in /usr/share/licenses/libice
+    "libice": ["MIT-open-group"],
+    # MIT-open-group license provided in /usr/share/licenses/libsm
+    "libsm": ["MIT-open-group"],
     # X11 license provided in /usr/share/licenses/libx11
     "libx11": ["X11"],
+    # MIT-open-group license provided in /usr/share/licenses/libxau
+    "libxau": ["MIT-open-group"],
     # Various licenses provided in /usr/share/licenses/libxaw
     "libxaw": [
         "HPND",
@@ -57,6 +63,42 @@ CUSTOM_LICENSE_ALLOWLIST = {
         "SMLNJ",
         "X11",
     ],
+    # HPND-sell-variant license provided in /usr/share/licenses/libxcomposite
+    "libxcomposite": ["HPND-sell-variant"],
+    # HPND-sell-variant license provided in /usr/share/licenses/libxcvt
+    "libxcvt": ["HPND-sell-variant"],
+    # HPND-sell-variant license provided in /usr/share/licenses/libxdamage
+    "libxdamage": ["HPND-sell-variant"],
+    # HPND-sell-variant license provided in /usr/share/licenses/libxfixes
+    "libxfixes": ["HPND-sell-variant"],
+    # Various licenses provided in /usr/share/licenses/libxfont2
+    "libxfont2": ["HPND-sell-variant", "MIT-open-group", "SMLNJ", "X11"],
+    # Various licenses provided in /usr/share/licenses/libxi
+    "libxi": ["MIT-open-group", "SMLNJ"],
+    # Various licenses provided in /usr/share/licenses/libxinerama
+    "libxinerama": ["MIT-open-group", "X11"],
+    # HPND-sell-variant license provided in /usr/share/licenses/libxft
+    "libxft": ["HPND-sell-variant"],
+    # X11-distribute-modifications-variant license provided in /usr/share/licenses/libxpm
+    "libxpm": ["X11-distribute-modifications-variant"],
+    # HPND-sell-variant license provided in /usr/share/licenses/libxrender
+    "libxrender": ["HPND-sell-variant"],
+    # HPND-sell-variant license provided in /usr/share/licenses/libxshmfence
+    "libxshmfence": ["HPND-sell-variant"],
+    # X11 license provided in /usr/share/licenses/libxss
+    "libxss": ["X11"],
+    # Various licenses provided in /usr/share/licenses/libxtst
+    "libxtst": [
+        "HPND-doc",
+        "HPND-doc-sell",
+        "HPND-sell-variant",
+        "MIT-open-group",
+        "X11",
+    ],
+    # Various licenses provided in /usr/share/licenses/libxt
+    "libxt": ["HPND-sell-variant", "MIT-open-group", "SMLNJ", "X11"],
+    # Various licenses provided in /usr/share/licenses/libxv
+    "libxv": ["HPND-sell-variant", "SMLNJ"],
     # UnicodeData license provided in /usr/share/licenses/gnupg/Unicode-TOU.txt
     # BSD-4-Clause license provided in /usr/share/licenses/gnupg/BSD-4-Clause.txt
     "gnupg": ["Unicode-TOU", "BSD-4-Clause"],
@@ -77,6 +119,8 @@ CUSTOM_LICENSE_ALLOWLIST = {
         "X11",
         "X11-distribute-modifications-variant",
     ],
+    # X11-distribute-modifications-variant license provided in /usr/share/licenses/libxxf86vm
+    "libxxf86vm": ["X11-distribute-modifications-variant"],
     # 0BSD license provided in /usr/share/licenses/lilv/0BSD.txt
     "lilv": ["0BSD"],
     # MIT-open-group license provided in /usr/share/licenses/ncurses
