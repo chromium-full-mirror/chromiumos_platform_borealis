@@ -106,6 +106,8 @@ CUSTOM_LICENSE_ALLOWLIST = {
     "gnupg": ["Unicode-TOU", "BSD-4-Clause"],
     # IJG license provided in /usr/share/licenses/libjpeg-turbo/README.ijg
     "libjpeg-turbo": ["IJG"],
+    # LLVM-exception license provided in /usr/share/licenses/llvm-libs
+    "llvm-libs": ["LLVM-exception"],
     # BSD-2-Clause-Patent license provided in /usr/share/licenses/libsysprof-capture
     "libsysprof-capture": ["BSD-2-Clause-Patent"],
     # X11 license provided in /usr/share/licenses/libxcb
