@@ -1232,6 +1232,9 @@ RUN rm pkgs/*-debug-*.zst && pacman -U --noconfirm pkgs/*.zst && rm -r pkgs
 #******************************************************************************
 # The runtime image is the actual borealis product
 FROM runtime_base AS runtime
+
+ARG disable_arch_sig_validation
+
 # Create users and groups for various services.
 #
 # Note: When started from the UI, Steam and games run under the set of groups
@@ -1338,6 +1341,11 @@ COPY --from=insight-layer-build /scratch/insight_layer/layer.json \
     /usr/share/vulkan/explicit_layer.d/VkLayer_INSIGHT_layer.json
 # Set up /etc
 COPY etc/ /etc/
+# If --disable-arch-sig-validation is set change the siglevel symlink
+# to point to the more permissive siglevel.trustall
+RUN if [[ ! -z "${disable_arch_sig_validation}" \
+          && "${disable_arch_sig_validation}" == 'true' ]]; then \
+  ln -sf /etc/pacman.d/siglevel.trustall /etc/pacman.d/siglevel; fi
 RUN mv /opt/google/cros-containers/etc/* /etc \
     && rmdir /opt/google/cros-containers/etc
 # Set up custom scripts
