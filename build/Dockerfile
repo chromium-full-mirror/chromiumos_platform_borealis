@@ -884,7 +884,7 @@ RUN mkdir "$ARTIFACTS"/bin \
 # audiotest-builder has prerequisites to build audiotest.
 FROM builder AS audiotest-builder
 WORKDIR /scratch
-RUN pacman -Syu --noconfirm \
+RUN pacman -S --noconfirm \
     alsa-lib
 
 #******************************************************************************
