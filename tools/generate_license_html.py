@@ -57,10 +57,14 @@ CUSTOM_LICENSE_ALLOWLIST = {
     "libjpeg-turbo": ["IJG"],
     # 0BSD license provided in /usr/share/licenses/lilv/0BSD.txt
     "lilv": ["0BSD"],
+    # LLVM-exception license provided in /usr/share/licenses/llvm
+    "llvm": ["LLVM-exception"],
     # LLVM-exception license provided in /usr/share/licenses/llvm-libs
     "llvm-libs": ["LLVM-exception"],
     # MIT-open-group license provided in /usr/share/licenses/ncurses
     "ncurses": ["MIT-open-group"],
+    # BSD-Attribution-HPND-disclaimer license provided in /usr/share/licenses/python-pillow
+    "python-pillow": ["BSD-Attribution-HPND-disclaimer"],
     # Python-2.0.1 license provided in /usr/share/licenses/python-typing_extensions
     "python-typing_extensions": ["Python-2.0.1"],
     # BSD-3-Clause-Attribution license provided in /usr/share/licenses/libsasl
@@ -92,6 +96,10 @@ CUSTOM_LICENSE_ALLOWLIST = {
     "libxcb": ["X11"],
     # X11-distribute-modifications-variant license provided in /usr/share/licenses/xcb-proto
     "xcb-proto": ["X11-distribute-modifications-variant"],
+    # X11-distribute-modifications-variant license provided in /usr/share/licenses/xcb-util-keysyms
+    "xcb-util-keysyms": ["X11-distribute-modifications-variant"],
+    # X11-distribute-modifications-variant license provided in /usr/share/licenses/xcb-util-wm
+    "xcb-util-wm": ["X11-distribute-modifications-variant"],
     # HPND-sell-variant license provided in /usr/share/licenses/libxcomposite
     "libxcomposite": ["HPND-sell-variant"],
     # HPND-sell-variant license provided in /usr/share/licenses/libxcvt
@@ -146,6 +154,8 @@ CUSTOM_LICENSE_ALLOWLIST = {
     "libxpm": ["X11-distribute-modifications-variant"],
     # HPND-sell-variant license provided in /usr/share/licenses/libxrender
     "libxrender": ["HPND-sell-variant"],
+    # X11 license provided in /usr/share/licenses/libxres
+    "libxres": ["X11"],
     # HPND-sell-variant license provided in /usr/share/licenses/libxshmfence
     "libxshmfence": ["HPND-sell-variant"],
     # X11 license provided in /usr/share/licenses/libxss
