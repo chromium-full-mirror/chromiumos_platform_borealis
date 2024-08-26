@@ -33,6 +33,8 @@ SHARED_TEMPLATE = os.path.join(
 CUSTOM_LICENSE_ALLOWLIST = {
     # OFL-1.1 license provided in /usr/share/licenses/adobe-source-code-pro-fonts
     "adobe-source-code-pro-fonts": ["OFL-1.1"],
+    # LLVM-exception license provided in /usr/share/licenses/libcups
+    "libcups": ["LLVM-exception"],
     # AFL-2.1 license provided in /usr/share/licenses/dbus/COPYING
     "dbus": ["AFL-2.1"],
     "lib32-dbus": ["AFL-2.1"],
@@ -42,16 +44,37 @@ CUSTOM_LICENSE_ALLOWLIST = {
     "gcc": ["GPL-3.0-with-GCC-exception"],
     "gcc-libs": ["GPL-3.0-with-GCC-exception"],
     "lib32-gcc-libs": ["GPL-3.0-with-GCC-exception"],
-    # MIT, SGI-B-2.0 licenses provided in /usr/share/licenses/glu
-    "glu": ["SGI-B-2.0"],
-    # LLVM-exception license provided in /usr/share/licenses/libcups
-    "libcups": ["LLVM-exception"],
     # X11 license provided in /usr/share/licenses/libgcrypt
     "libgcrypt": ["X11"],
+    # MIT, SGI-B-2.0 licenses provided in /usr/share/licenses/glu
+    "glu": ["SGI-B-2.0"],
+    # UnicodeData license provided in /usr/share/licenses/gnupg/Unicode-TOU.txt
+    # BSD-4-Clause license provided in /usr/share/licenses/gnupg/BSD-4-Clause.txt
+    "gnupg": ["Unicode-TOU", "BSD-4-Clause"],
     # MIT-open-group license provided in /usr/share/licenses/libice
     "libice": ["MIT-open-group"],
+    # IJG license provided in /usr/share/licenses/libjpeg-turbo/README.ijg
+    "libjpeg-turbo": ["IJG"],
+    # 0BSD license provided in /usr/share/licenses/lilv/0BSD.txt
+    "lilv": ["0BSD"],
+    # LLVM-exception license provided in /usr/share/licenses/llvm-libs
+    "llvm-libs": ["LLVM-exception"],
+    # MIT-open-group license provided in /usr/share/licenses/ncurses
+    "ncurses": ["MIT-open-group"],
+    # Python-2.0.1 license provided in /usr/share/licenses/python-typing_extensions
+    "python-typing_extensions": ["Python-2.0.1"],
+    # BSD-3-Clause-Attribution license provided in /usr/share/licenses/libsasl
+    "libsasl": ["BSD-3-Clause-Attribution"],
+    # 0BSD license provided in /usr/share/licenses/serd/0BSD.txt
+    "serd": ["0BSD"],
     # MIT-open-group license provided in /usr/share/licenses/libsm
     "libsm": ["MIT-open-group"],
+    # BSD-2-Clause-Patent license provided in /usr/share/licenses/libsysprof-capture
+    "libsysprof-capture": ["BSD-2-Clause-Patent"],
+    # MIT-0 license provided in /usr/share/licenses/systemd
+    "systemd": ["MIT-0"],
+    # SISSL license provided in /usr/share/licenses/libtirpc
+    "libtirpc": ["SISSL"],
     # X11 license provided in /usr/share/licenses/libx11
     "libx11": ["X11"],
     # MIT-open-group license provided in /usr/share/licenses/libxau
@@ -65,86 +88,34 @@ CUSTOM_LICENSE_ALLOWLIST = {
         "SMLNJ",
         "X11",
     ],
+    # X11 license provided in /usr/share/licenses/libxcb
+    "libxcb": ["X11"],
+    # X11-distribute-modifications-variant license provided in /usr/share/licenses/xcb-proto
+    "xcb-proto": ["X11-distribute-modifications-variant"],
     # HPND-sell-variant license provided in /usr/share/licenses/libxcomposite
     "libxcomposite": ["HPND-sell-variant"],
     # HPND-sell-variant license provided in /usr/share/licenses/libxcvt
     "libxcvt": ["HPND-sell-variant"],
+    # HPND-sell-variant license provided in /usr/share/licenses/libxcursor
+    "libxcursor": ["HPND-sell-variant"],
     # HPND-sell-variant license provided in /usr/share/licenses/libxdamage
     "libxdamage": ["HPND-sell-variant"],
+    # MIT-open-group license provided in /usr/share/licenses/libxdmcp
+    "libxdmcp": ["MIT-open-group"],
     # HPND-sell-variant license provided in /usr/share/licenses/libxfixes
     "libxfixes": ["HPND-sell-variant"],
     # Various licenses provided in /usr/share/licenses/libxfont2
     "libxfont2": ["HPND-sell-variant", "MIT-open-group", "SMLNJ", "X11"],
+    # HPND-sell-variant license provided in /usr/share/licenses/libxft
+    "libxft": ["HPND-sell-variant"],
     # Various licenses provided in /usr/share/licenses/libxi
     "libxi": ["MIT-open-group", "SMLNJ"],
     # Various licenses provided in /usr/share/licenses/libxinerama
     "libxinerama": ["MIT-open-group", "X11"],
-    # HPND-sell-variant license provided in /usr/share/licenses/libxft
-    "libxft": ["HPND-sell-variant"],
-    # X11-distribute-modifications-variant license provided in /usr/share/licenses/libxpm
-    "libxpm": ["X11-distribute-modifications-variant"],
-    # HPND-sell-variant license provided in /usr/share/licenses/libxrender
-    "libxrender": ["HPND-sell-variant"],
-    # HPND-sell-variant license provided in /usr/share/licenses/libxshmfence
-    "libxshmfence": ["HPND-sell-variant"],
-    # X11 license provided in /usr/share/licenses/libxss
-    "libxss": ["X11"],
-    # Various licenses provided in /usr/share/licenses/libxtst
-    "libxtst": [
-        "HPND-doc",
-        "HPND-doc-sell",
-        "HPND-sell-variant",
-        "MIT-open-group",
-        "X11",
-    ],
-    # Various licenses provided in /usr/share/licenses/libxt
-    "libxt": ["HPND-sell-variant", "MIT-open-group", "SMLNJ", "X11"],
-    # Various licenses provided in /usr/share/licenses/libxv
-    "libxv": ["HPND-sell-variant", "SMLNJ"],
-    # UnicodeData license provided in /usr/share/licenses/gnupg/Unicode-TOU.txt
-    # BSD-4-Clause license provided in /usr/share/licenses/gnupg/BSD-4-Clause.txt
-    "gnupg": ["Unicode-TOU", "BSD-4-Clause"],
-    # IJG license provided in /usr/share/licenses/libjpeg-turbo/README.ijg
-    "libjpeg-turbo": ["IJG"],
-    # LLVM-exception license provided in /usr/share/licenses/llvm-libs
-    "llvm-libs": ["LLVM-exception"],
-    # BSD-2-Clause-Patent license provided in /usr/share/licenses/libsysprof-capture
-    "libsysprof-capture": ["BSD-2-Clause-Patent"],
-    # X11 license provided in /usr/share/licenses/libxcb
-    "libxcb": ["X11"],
-    # HPND-sell-variant license provided in /usr/share/licenses/libxcursor
-    "libxcursor": ["HPND-sell-variant"],
-    # MIT-open-group license provided in /usr/share/licenses/libxdmcp
-    "libxdmcp": ["MIT-open-group"],
     # Various licenses provided in /usr/share/licenses/libxmu
     "libxmu": [
         "MIT-open-group",
         "SMLNJ",
-        "X11",
-        "X11-distribute-modifications-variant",
-    ],
-    # X11-distribute-modifications-variant license provided in /usr/share/licenses/libxxf86vm
-    "libxxf86vm": ["X11-distribute-modifications-variant"],
-    # 0BSD license provided in /usr/share/licenses/lilv/0BSD.txt
-    "lilv": ["0BSD"],
-    # MIT-open-group license provided in /usr/share/licenses/ncurses
-    "ncurses": ["MIT-open-group"],
-    # Python-2.0.1 license provided in /usr/share/licenses/python-typing_extensions
-    "python-typing_extensions": ["Python-2.0.1"],
-    # 0BSD license provided in /usr/share/licenses/serd/0BSD.txt
-    "serd": ["0BSD"],
-    # MIT-0 license provided in /usr/share/licenses/systemd
-    "systemd": ["MIT-0"],
-    # X11-distribute-modifications-variant license provided in /usr/share/licenses/xcb-proto
-    "xcb-proto": ["X11-distribute-modifications-variant"],
-    # Various licenses provided in /usr/share/licenses/xorgproto
-    "xorgproto": [
-        "HPND",
-        "HPND-sell-variant",
-        "ICU",
-        "MIT-open-group",
-        "SMLNJ",
-        "SGI-B-2.0",
         "X11",
         "X11-distribute-modifications-variant",
     ],
@@ -160,6 +131,39 @@ CUSTOM_LICENSE_ALLOWLIST = {
         "X11",
         "X11-distribute-modifications-variant",
     ],
+    # Various licenses provided in /usr/share/licenses/xorgproto
+    "xorgproto": [
+        "HPND",
+        "HPND-sell-variant",
+        "ICU",
+        "MIT-open-group",
+        "SMLNJ",
+        "SGI-B-2.0",
+        "X11",
+        "X11-distribute-modifications-variant",
+    ],
+    # X11-distribute-modifications-variant license provided in /usr/share/licenses/libxpm
+    "libxpm": ["X11-distribute-modifications-variant"],
+    # HPND-sell-variant license provided in /usr/share/licenses/libxrender
+    "libxrender": ["HPND-sell-variant"],
+    # HPND-sell-variant license provided in /usr/share/licenses/libxshmfence
+    "libxshmfence": ["HPND-sell-variant"],
+    # X11 license provided in /usr/share/licenses/libxss
+    "libxss": ["X11"],
+    # Various licenses provided in /usr/share/licenses/libxt
+    "libxt": ["HPND-sell-variant", "MIT-open-group", "SMLNJ", "X11"],
+    # Various licenses provided in /usr/share/licenses/libxtst
+    "libxtst": [
+        "HPND-doc",
+        "HPND-doc-sell",
+        "HPND-sell-variant",
+        "MIT-open-group",
+        "X11",
+    ],
+    # Various licenses provided in /usr/share/licenses/libxv
+    "libxv": ["HPND-sell-variant", "SMLNJ"],
+    # X11-distribute-modifications-variant license provided in /usr/share/licenses/libxxf86vm
+    "libxxf86vm": ["X11-distribute-modifications-variant"],
     # 0BSD license provided in /usr/share/licenses/zix/0BSD.txt
     "zix": ["0BSD"],
 }
