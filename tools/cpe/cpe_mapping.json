@@ -437,6 +437,7 @@
   "m4": null,
   "make": "cpe:/a:gnu:make",
   "mangohud": null,
+  "mbedtls2": "cpe:/a:arm:mbed_tls",
   "mesa-utils": null,
   "meson": null,
   "mg": null,
