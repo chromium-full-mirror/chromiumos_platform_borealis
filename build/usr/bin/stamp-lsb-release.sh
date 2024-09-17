@@ -48,7 +48,7 @@ elif [[ "${PROD_CLEANUP}" == "1" ]]; then
   # /usr/share/licenses for some packages.  Save these to allow license
   # extraction to work.
   mkdir -p /usr/share/doc.save
-  mv /usr/share/doc/{libjpeg-turbo,xz} /usr/share/doc.save
+  mv /usr/share/doc/{libjpeg-turbo,systemd,xz} /usr/share/doc.save
   rm -rf /usr/share/doc
   mv /usr/share/doc.save /usr/share/doc
 
