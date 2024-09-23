@@ -660,6 +660,7 @@
   "tdb": null,
   "tevent": null,
   "texinfo": "cpe:/a:gnu:texinfo",
+  "tinysparql": null,
   "tmux": "cpe:/a:tmux_project:tmux",
   "tpm2-tss": null,
   "tracker3": null,
