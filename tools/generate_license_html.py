@@ -162,6 +162,8 @@ CUSTOM_LICENSE_ALLOWLIST = {
     "libxss": ["X11"],
     # Various licenses provided in /usr/share/licenses/libxt
     "libxt": ["HPND-sell-variant", "MIT-open-group", "SMLNJ", "X11"],
+    # Various licenses provided in /usr/share/licenses/xtrans
+    "xtrans": ["HPND", "HPND-sell-variant", "MIT-open-group", "X11"],
     # Various licenses provided in /usr/share/licenses/libxtst
     "libxtst": [
         "HPND-doc",
