@@ -74,7 +74,7 @@ RUN pacman -S --noconfirm rust
 FROM builder AS perfetto-builder
 WORKDIR /scratch
 # checkout a pinned Perfetto release available as git tag vNNN.N
-RUN git clone --depth 1 --branch v33.0 \
+RUN git clone --depth 1 --branch v48.0 \
     https://android.googlesource.com/platform/external/perfetto
 WORKDIR /scratch/perfetto
 RUN tools/write_version_header.py --stdout > /artifacts/version && \
@@ -202,6 +202,7 @@ RUN pacman -U --noconfirm pkgs/*.zst \
         python-mako \
         python-packaging \
         python-ply \
+        python-yaml \
         vulkan-icd-loader \
         vulkan-headers \
         vulkan-utility-libraries \

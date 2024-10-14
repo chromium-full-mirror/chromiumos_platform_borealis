@@ -18,7 +18,7 @@ conflicts=('lib32-cros-mesa' 'lib32-mesa' 'lib32-vulkan-virtio')
 url="https://www.mesa3d.org"
 license=('custom')
 _borealis_branch_tracked=('upstream/main')
-_borealis_current_ref=('commit=9bce6f5cc44d239bcc8ba8d92c4569eae38d99a8')
+_borealis_current_ref=('commit=0530d4d59d7727fcefab1bff870b9923ea9f2098')
 source=("mesa::git+https://chromium.googlesource.com/chromiumos/third_party/mesa.git#${_borealis_current_ref}"
         'LICENSE'
         'llvm32.native')
@@ -78,13 +78,12 @@ build () {
         -D platforms=x11,wayland \
         -D gallium-drivers="${EXTRA_GALLIUM_DRIVERS}"swrast,virgl,zink \
         -D vulkan-drivers="${EXTRA_VULKAN_DRIVERS}"virtio \
-        -D dri3=enabled \
         -D egl=enabled \
         -D gbm=enabled \
         -D gles1=enabled \
         -D gles2=enabled \
         -D opengl=true \
-        -D glvnd=true \
+        -D glvnd=enabled \
         -D glx=dri \
         -D libunwind=enabled \
         -D llvm=enabled \
