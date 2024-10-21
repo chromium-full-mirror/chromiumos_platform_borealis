@@ -20,7 +20,7 @@ backup=()
 options=()
 install=
 _borealis_branch_tracked=('main')
-_borealis_current_ref=('commit=6bfbff7cb892e1607ce0c49028f2a23acf95e890')
+_borealis_current_ref=('commit=d755ec532a8cb57a7fcef506e9ff49e7e58e5f28')
 source=("graphics::git+https://chromium.googlesource.com/chromiumos/platform/graphics#${_borealis_current_ref}")
 noextract=()
 
