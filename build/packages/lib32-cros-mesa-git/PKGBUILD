@@ -10,7 +10,7 @@ makedepends=('python-mako' 'lib32-libxml2' 'lib32-libx11' 'xorgproto'
              'meson' 'lib32-libxrandr' 'glslang' 'lib32-llvm')
 depends=('cros-mesa-git' 'lib32-gcc-libs' 'lib32-libdrm' 'lib32-wayland' 'lib32-libxxf86vm'
          'lib32-libxdamage' 'lib32-libxshmfence' 'lib32-libelf' 'lib32-libunwind'
-         'lib32-lm_sensors' 'lib32-vulkan-icd-loader' 'lib32-zstd'
+         'lib32-lm_sensors' 'lib32-spirv-tools' 'lib32-vulkan-icd-loader' 'lib32-zstd'
         'lib32-llvm-libs')
 optdepends=('opengl-man-pages: for the OpenGL API man pages')
 provides=('lib32-cros-mesa' 'lib32-mesa' 'lib32-vulkan-virtio' 'lib32-opengl-driver' 'lib32-vulkan-driver')
@@ -76,7 +76,7 @@ build () {
         -D sysconfdir=/etc \
         --libdir=/usr/lib32 \
         -D platforms=x11,wayland \
-        -D gallium-drivers="${EXTRA_GALLIUM_DRIVERS}"swrast,virgl,zink \
+        -D gallium-drivers="${EXTRA_GALLIUM_DRIVERS}"softpipe,llvmpipe,virgl,zink \
         -D vulkan-drivers="${EXTRA_VULKAN_DRIVERS}"virtio \
         -D egl=enabled \
         -D gbm=enabled \

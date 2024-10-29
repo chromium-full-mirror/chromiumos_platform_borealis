@@ -133,8 +133,9 @@ for arch in ${arches}; do
   echo -e "\nConfiguring Mesa '${build_type}' (${arch}) build at" \
     "\"${build_dir}\""
   # shellcheck disable=SC2086
+  # shellcheck disable=SC2248
   meson setup "${build_dir}" "${src_prefix}" \
-    -Dgallium-drivers="virgl,swrast,zink" \
+    -Dgallium-drivers="virgl,softpipe,llvmpipe,zink" \
     -Dvulkan-drivers="${vulkan_drivers}" \
     -Dplatforms="x11,wayland" \
     -Dllvm="${llvm}" \

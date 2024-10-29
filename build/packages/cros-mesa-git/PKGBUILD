@@ -10,7 +10,7 @@ makedepends=('git' 'python-mako' 'xorgproto'
               'ocl-icd' 'wayland-protocols' 'meson' 'ninja' 'glslang'
               'llvm' 'clang')
 depends=('libdrm' 'libxxf86vm' 'libxdamage' 'libxshmfence' 'libelf'
-         'libunwind' 'libglvnd' 'wayland' 'lm_sensors' 'vulkan-icd-loader'
+         'libunwind' 'libglvnd' 'wayland' 'lm_sensors' 'spirv-tools' 'vulkan-icd-loader'
          'zstd' 'expat' 'llvm-libs')
 optdepends=('opengl-man-pages: manpages'
             'clang: opencl'
@@ -78,7 +78,7 @@ build () {
        -D prefix=/usr \
        -D sysconfdir=/etc \
        -D platforms=x11,wayland \
-       -D gallium-drivers="${EXTRA_GALLIUM_DRIVERS}"swrast,virgl,zink \
+       -D gallium-drivers="${EXTRA_GALLIUM_DRIVERS}"softpipe,llvmpipe,virgl,zink \
        -D vulkan-drivers="${EXTRA_VULKAN_DRIVERS}"virtio \
        -D egl=enabled \
        -D gbm=enabled \

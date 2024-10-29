@@ -1471,8 +1471,10 @@ RUN pacman -S --noconfirm \
         libxrandr \
         lib32-libxrandr \
         llvm \
+        lib32-llvm \
         meson \
         python-mako \
+        python-yaml \
         # Xwayland dependencies
         xtrans \
         # gobject cairo and urllib are needed to launch steam with
