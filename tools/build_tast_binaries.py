@@ -25,7 +25,7 @@ ZLIB_VERSION = "1.2.13"
 ZLIB_CHECKSUM = (
     "b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30"
 )
-PIGLIT_COMMIT = "e96b8d592f6b6d4d06fb81ea36fb9d36ebf1d6dd"
+PIGLIT_COMMIT = "c2b31333926a6171c3c02d182b756efad7770410"
 
 
 def query_package(ch: chroot.Chroot, package: str) -> str:
@@ -77,9 +77,6 @@ def gather_build_config(ch: chroot.Chroot):
     nvidia_video_samples_commit = re_find_one(
         r"MY_NVIDIA_VIDEO_SAMPLES_COMMIT=\'([\w\s]+)\'", deqp_content
     )
-    esextractor_commit = re_find_one(
-        r"MY_ESEXTRACTOR_COMMIT=\'([\S]+)\'", deqp_content
-    )
 
     return {
         "VERSION_deqp_runner": deqp_runner_version,
@@ -89,7 +86,6 @@ def gather_build_config(ch: chroot.Chroot):
         "COMMIT_spirv_tools": spirv_tools_commit,
         "COMMIT_spirv_headers": spirv_headers_commit,
         "COMMIT_nvidia_video_samples": nvidia_video_samples_commit,
-        "COMMIT_esextractor": esextractor_commit,
         "ZLIB_VERSION": ZLIB_VERSION,
         "ZLIB_CHECKSUM": ZLIB_CHECKSUM,
         "PIGLIT_COMMIT": PIGLIT_COMMIT,

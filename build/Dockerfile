@@ -639,7 +639,6 @@ ARG COMMIT_spirv_headers
 ARG COMMIT_glslang
 ARG COMMIT_amber
 ARG COMMIT_nvidia_video_samples
-ARG COMMIT_esextractor
 ARG VERSION_deqp_runner
 ARG ZLIB_VERSION
 ARG ZLIB_CHECKSUM
@@ -658,8 +657,6 @@ RUN git checkout "$COMMIT_deqp" \
     && sed '/amber.git/!b;n;n;c\\t\t\"'$COMMIT_amber'\",' \
         -i external/fetch_sources.py \
     && sed '/vk_video_samples.git/!b;n;n;c\\t\t\"'$COMMIT_nvidia_video_samples'\",' \
-        -i external/fetch_sources.py \
-    && sed '/ESExtractor.git/!b;n;n;c\\t\t\"'$COMMIT_esextractor'\",' \
         -i external/fetch_sources.py \
     && sed 's/zlib-.*.tar.gz/zlib-'$ZLIB_VERSION'.tar.gz/g' \
         -i external/fetch_sources.py \
