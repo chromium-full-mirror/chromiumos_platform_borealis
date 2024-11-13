@@ -63,8 +63,8 @@ CUSTOM_LICENSE_ALLOWLIST = {
     "llvm-libs": ["LLVM-exception"],
     # MIT-open-group license provided in /usr/share/licenses/ncurses
     "ncurses": ["MIT-open-group"],
-    # BSD-Attribution-HPND-disclaimer license provided in /usr/share/licenses/python-pillow
-    "python-pillow": ["BSD-Attribution-HPND-disclaimer"],
+    # MIT-CMU license provided in /usr/share/licenses/python-pillow
+    "python-pillow": ["MIT-CMU"],
     # Python-2.0.1 license provided in /usr/share/licenses/python-typing_extensions
     "python-typing_extensions": ["Python-2.0.1"],
     # BSD-3-Clause-Attribution license provided in /usr/share/licenses/libsasl
