@@ -23,7 +23,7 @@ build() {
 
 check() {
   cd "$pkgname"
-  python setup.py test
+  python -m unittest
 }
 
 package() {
