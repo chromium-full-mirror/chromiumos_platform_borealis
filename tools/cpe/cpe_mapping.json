@@ -556,6 +556,7 @@
   "python-httplib2": null,
   "python-idna": null,
   "python-inflect": null,
+  "python-jaraco.collections": null,
   "python-jaraco.context": null,
   "python-jaraco.functools": null,
   "python-jaraco.text": null,

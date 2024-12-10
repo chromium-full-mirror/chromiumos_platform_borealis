@@ -1350,6 +1350,12 @@ RUN mv /opt/google/cros-containers/etc/* /etc \
 COPY usr/bin/ /usr/bin/
 # Install bdt Python module (using setuptools, to avoid needing to install pip)
 RUN pacman -S --noconfirm python-setuptools
+
+# workaround (b/382327769) - Remove the LICENSE file as it symbolic
+# link to a non-existent file (and will stop the license tar package
+# step). Since this package is under an MIT license, it is not needed
+RUN rm /usr/share/licenses/python-setuptools/LICENSE
+
 COPY bdt /scratch/bdt
 RUN cd /scratch/bdt \
     && protoc --proto_path=src/ --python_out=src/ bdt_lib/quirks.proto \

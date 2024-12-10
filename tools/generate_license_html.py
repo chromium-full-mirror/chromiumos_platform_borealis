@@ -150,6 +150,10 @@ CUSTOM_LICENSE_ALLOWLIST = {
         "X11",
         "X11-distribute-modifications-variant",
     ],
+    # xorg-xprop license provided in /usr/share/licenses/xorg-xprop
+    "xorg-xprop": ["MIT-open-group"],
+    # xorg-xrandr license provided in /usr/share/licenses/xorg-xrandr
+    "xorg-xrandr": ["HPND-sell-variant"],
     # X11-distribute-modifications-variant license provided in /usr/share/licenses/libxpm
     "libxpm": ["X11-distribute-modifications-variant"],
     # HPND-sell-variant license provided in /usr/share/licenses/libxrender
