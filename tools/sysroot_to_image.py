@@ -113,7 +113,7 @@ def create_fs_image(sysroot, image, shrink):
                     "sudo",
                     "chown",
                     "root:root",
-                    mnt_dir + "/usr/lib/dbus-1.0/dbus-daemon-launch-helper",
+                    mnt_dir + "/usr/lib/dbus-daemon-launch-helper",
                 ]
             )
             subprocess.check_call(
@@ -121,7 +121,7 @@ def create_fs_image(sysroot, image, shrink):
                     "sudo",
                     "chmod",
                     "+s",
-                    mnt_dir + "/usr/lib/dbus-1.0/dbus-daemon-launch-helper",
+                    mnt_dir + "/usr/lib/dbus-daemon-launch-helper",
                 ]
             )
 
@@ -132,6 +132,7 @@ def create_fs_image(sysroot, image, shrink):
 
 
 def main():
+    """Main function."""
     parser = argparse.ArgumentParser(description=__doc__)
 
     parser.add_argument(
