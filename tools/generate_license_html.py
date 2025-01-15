@@ -61,6 +61,8 @@ CUSTOM_LICENSE_ALLOWLIST = {
     "llvm": ["LLVM-exception"],
     # LLVM-exception license provided in /usr/share/licenses/llvm-libs
     "llvm-libs": ["LLVM-exception"],
+    # LLVM-exception license provided in /usr/share/licenses/lib32-llvm
+    "lib32-llvm": ["LLVM-exception"],
     # LLVM-exception license provided in /usr/share/licenses/lib32-llvm-libs
     "lib32-llvm-libs": ["LLVM-exception"],
     # MIT-open-group license provided in /usr/share/licenses/ncurses

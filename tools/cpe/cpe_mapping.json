@@ -139,6 +139,7 @@
   "glu": null,
   "glusterfs": "cpe:/a:gluster:glusterfs",
   "gmp": "cpe:/a:gmplib:gmp",
+  "gnulib-l10n": null,
   "gnupg": "cpe:/a:gnupg:gnupg",
   "gnutls": "cpe:/a:gnu:gnutls",
   "gobject-introspection-runtime": null,
