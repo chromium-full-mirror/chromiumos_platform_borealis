@@ -20,7 +20,7 @@ conflicts=('cros-mesa' 'mesa' 'vulkan-virtio' 'vulkan-mesa-layer' 'mesa-libgl')
 url="https://www.mesa3d.org"
 license=('custom')
 _borealis_branch_tracked=('upstream/main')
-_borealis_current_ref=('commit=94fa449318b507c1bd00927b403fcd095d6b3a61')
+_borealis_current_ref=('commit=10a4dc529f09d3bad59d8fb0861af0e754325629')
 source=("mesa::git+https://chromium.googlesource.com/chromiumos/third_party/mesa.git#${_borealis_current_ref}"
         'LICENSE')
 md5sums=('SKIP'
