@@ -85,6 +85,8 @@ CUSTOM_LICENSE_ALLOWLIST = {
     "systemd": ["MIT-0"],
     # SISSL license provided in /usr/share/licenses/libtirpc
     "libtirpc": ["SISSL"],
+    # X11 license provided in /usr/share/licenses/lib32-libx11
+    "lib32-libx11": ["X11"],
     # X11 license provided in /usr/share/licenses/libx11
     "libx11": ["X11"],
     # MIT-open-group license provided in /usr/share/licenses/libxau
