@@ -55,6 +55,10 @@ CUSTOM_LICENSE_ALLOWLIST = {
     "gnupg": ["Unicode-TOU", "BSD-4-Clause"],
     # MIT-open-group license provided in /usr/share/licenses/libice
     "libice": ["MIT-open-group"],
+    # NAIST-2003 license provided in /usr/share/licenses/icu
+    "icu": ["NAIST-2003"],
+    # NAIST-2003 license provided in /usr/share/licenses/lib32-icu
+    "lib32-icu": ["NAIST-2003"],
     # IJG license provided in /usr/share/licenses/libjpeg-turbo/README.ijg
     "libjpeg-turbo": ["IJG"],
     # 0BSD license provided in /usr/share/licenses/lilv/0BSD.txt
@@ -69,6 +73,10 @@ CUSTOM_LICENSE_ALLOWLIST = {
     "lib32-llvm-libs": ["LLVM-exception"],
     # MIT-open-group license provided in /usr/share/licenses/ncurses
     "ncurses": ["MIT-open-group"],
+    # PCRE2-exception license provided in /usr/share/licenses/pcre2
+    "pcre2": ["PCRE2-exception"],
+    # PCRE2-exception license provided in /usr/share/licenses/lib32-pcre2
+    "lib32-pcre2": ["PCRE2-exception"],
     # MIT-CMU license provided in /usr/share/licenses/python-pillow
     "python-pillow": ["MIT-CMU"],
     # Python-2.0.1 license provided in /usr/share/licenses/python-typing_extensions
