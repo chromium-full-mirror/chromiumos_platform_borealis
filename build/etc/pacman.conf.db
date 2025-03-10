@@ -14,7 +14,5 @@ Include = /etc/pacman.conf.common
 Include = /etc/pacman.d/mirrorlist.db
 [extra]
 Include = /etc/pacman.d/mirrorlist.db
-[community]
-Include = /etc/pacman.d/mirrorlist.db
 [multilib]
 Include = /etc/pacman.d/mirrorlist.db
