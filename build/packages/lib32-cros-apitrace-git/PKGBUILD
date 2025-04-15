@@ -59,7 +59,8 @@ build() {
   cmake . -Bbuild -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=32 \
     -DENABLE_GUI="no" \
-    -DENABLE_WAFFLE=ON
+    -DENABLE_WAFFLE=ON \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
   for f in $(find . -name "link.txt"); do sed "s/\ \-R/\ \-Wl,-rpath=/" -i $f; done
   make -j -C build

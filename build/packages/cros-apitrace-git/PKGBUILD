@@ -55,7 +55,8 @@ build() {
 
   cmake . -Bbuild -DCMAKE_INSTALL_PREFIX=/usr \
     -DENABLE_GUI=FALSE \
-    -DENABLE_WAFFLE=ON
+    -DENABLE_WAFFLE=ON \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   make -j -C build
 }
 
