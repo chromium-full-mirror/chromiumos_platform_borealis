@@ -21,7 +21,7 @@ backup=()
 options=(debug strip)
 install=
 _borealis_branch_tracked=('main')
-_borealis_current_ref=('commit=531e516ff79e55da68dad3be661e00b7476815e7')
+_borealis_current_ref=('commit=bcfc5478706b3d6d0dbd00f56482fb5163e654b9')
 source=("audiotest::git+https://chromium.googlesource.com/chromiumos/platform/audiotest#${_borealis_current_ref}"
         'LICENSE')
 noextract=()
