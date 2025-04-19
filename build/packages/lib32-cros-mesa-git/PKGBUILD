@@ -18,7 +18,7 @@ conflicts=('lib32-cros-mesa' 'lib32-mesa' 'lib32-vulkan-virtio')
 url="https://www.mesa3d.org"
 license=('custom')
 _borealis_branch_tracked=('upstream/main')
-_borealis_current_ref=('commit=84505c5d99cf95d57e1d7032b13f08420a8f4c0a')
+_borealis_current_ref=('commit=c0f56fc64cad946d5c4fda509ef3056994c183d9')
 source=("mesa::git+https://chromium.googlesource.com/chromiumos/third_party/mesa.git#${_borealis_current_ref}"
         'LICENSE'
         'llvm32.native')
