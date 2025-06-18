@@ -150,7 +150,7 @@ def setup_code(build_dir, cros_path):
     borealis_stamp = stamp(
         build_dir,
         "borealis",
-        get_subrepo_version(cros_path, ["platform", "borealis"]),
+        get_subrepo_version(cros_path, ["platform", "borealis-vm"]),
     )
     sommelier_stamp = stamp(
         build_dir, "sommelier", get_subrepo_version(cros_path, ["platform2"])
