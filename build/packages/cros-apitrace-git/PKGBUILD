@@ -21,8 +21,10 @@ source=("apitrace::git+https://chromium.googlesource.com/chromiumos/third_party/
         'thirdparty/libbacktrace::git+https://github.com/ianlancetaylor/libbacktrace#commit=4d2dd0b172f2c9192f83ba93425f868f2a13c553'
         'thirdparty/libpng::git+https://github.com/apitrace/libpng#commit=a37d4836519517bdce6cb9d956092321eca3e73b'
         'thirdparty/snappy::git+https://github.com/google/snappy#commit=8dd58a519f79f0742d4c68fbccb2aed2ddb651e8'
-        'thirdparty/zlib::git+https://github.com/madler/zlib#commit=21767c654d31d2dccdde4330529775c6c5fd5389')
+        'thirdparty/zlib::git+https://github.com/madler/zlib#commit=21767c654d31d2dccdde4330529775c6c5fd5389'
+        '0001-CHROMIUM-retrace-Fix-includes-to-include-cstdint.patch')
 md5sums=(SKIP
+         SKIP
          SKIP
          SKIP
          SKIP
@@ -33,6 +35,7 @@ md5sums=(SKIP
 
 prepare() {
   cd ${srcdir}/apitrace
+  patch --forward --strip=1 --input="${srcdir}/0001-CHROMIUM-retrace-Fix-includes-to-include-cstdint.patch"
   git submodule init
   git config submodule.frametrim/tests.url "${srcdir}/../frametrim/tests"
   git config submodule.third_party/brotli.url "${srcdir}/../thirdparty/brotli"
@@ -56,7 +59,9 @@ build() {
   cmake . -Bbuild -DCMAKE_INSTALL_PREFIX=/usr \
     -DENABLE_GUI=FALSE \
     -DENABLE_WAFFLE=ON \
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+    -DCMAKE_C_COMPILER=clang \
+    -DCMAKE_CXX_COMPILER=clang++
   make -j -C build
 }
 
