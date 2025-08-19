@@ -33,6 +33,8 @@ SHARED_TEMPLATE = os.path.join(
 CUSTOM_LICENSE_ALLOWLIST = {
     # OFL-1.1 license provided in /usr/share/licenses/adobe-source-code-pro-fonts
     "adobe-source-code-pro-fonts": ["OFL-1.1"],
+    # OFL-1.1 license provided in /usr/share/licenses/adwaita-fonts
+    "adwaita-fonts": ["OFL-1.1"],
     # LLVM-exception license provided in /usr/share/licenses/libcups
     "libcups": ["LLVM-exception"],
     # AFL-2.1 license provided in /usr/share/licenses/dbus/COPYING
