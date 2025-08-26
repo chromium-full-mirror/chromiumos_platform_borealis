@@ -9,7 +9,7 @@
 # with the extra repos necessary to install our software.
 # TODO(pobega): Find a solution for historic builds that doesn't require
 #               manual upreving. This tag will eventually disappear.
-FROM archlinux:base-20240101.0.204074 AS initial
+FROM archlinux:base-20250824.0.410029 AS initial
 
 ARG disable_arch_sig_validation
 
