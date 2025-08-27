@@ -1144,6 +1144,7 @@ RUN rm pkgs/*-debug-*.zst && pacman -U --noconfirm pkgs/*.zst && rm -r pkgs
 # - pulseaudio - Proton, and games that use PulseAudio
 # - rtmpdump - Loop Hero (librtmp.so.1)
 # - speex - Master of Orion 2 (Dosbox)
+# - systemd - Needs to be reinstalled to populate /usr/share/doc
 # - xorg-xrandr - Slay the Spire, LWJGL (Lightweight Java Game Library)
 #   (pulled in by steam)
 # - xz - Needs to be reinstalled to populate /usr/share/doc
@@ -1214,6 +1215,7 @@ RUN pacman -Su --noconfirm --disable-download-timeout \
     sox \
     speex \
     strace \
+    systemd \
     ttf-liberation \
 # For vulkaninfo and vkcube
     vulkan-tools \
