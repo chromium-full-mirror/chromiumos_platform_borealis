@@ -360,7 +360,41 @@ FROM gfx-builder AS waffle-builder
 # Install packages already built.
 WORKDIR /scratch
 COPY --from=mesa-build /artifacts/*.zst pkgs/
+RUN pacman -U --noconfirm pkgs/*.zst
+
+#******************************************************************************
+#                                                                  waffle-build
+#******************************************************************************
+# waffle-build builds waffle and lib32-waffle packages.
+FROM waffle-builder AS waffle-build
+
+# Sync packages.
+COPY packages/waffle/ /scratch/waffle/
+
+# Allow makepkg to be run as nobody.
+RUN chgrp -R nobody /scratch && chmod -R g+ws /scratch
+
+USER nobody
+
+# Perform the waffle build.
+WORKDIR /scratch/waffle
+# TODO(davidriley): Avoid --skippgpcheck.
+RUN makepkg --skippgpcheck --noconfirm
+
+RUN cp /scratch/waffle/*.zst "$ARTIFACTS"
+
+#******************************************************************************
+#                                                          lib32-waffle-builder
+#******************************************************************************
+# waffle is used for apitrace, glbench and should be included by default.
+# lib32-waffle-builder has prerequisites to build lib32-waffle.
+FROM gfx-builder AS lib32-waffle-builder
+
+# Install packages already built.
+WORKDIR /scratch
 COPY --from=lib32-mesa-build /artifacts/*.zst pkgs/
+COPY --from=mesa-build /artifacts/*.zst pkgs/
+COPY --from=waffle-build /artifacts/*.zst pkgs/
 RUN pacman -U --noconfirm pkgs/*.zst \
     && pacman -S --noconfirm \
         lib32-libgl \
@@ -368,10 +402,10 @@ RUN pacman -U --noconfirm pkgs/*.zst \
         lib32-systemd
 
 #******************************************************************************
-#                                                                  waffle-build
+#                                                            lib32-waffle-build
 #******************************************************************************
-# waffle-build builds waffle and lib32-waffle packages.
-FROM waffle-builder AS waffle-build
+# lib32-waffle-build builds lib32-waffle packages.
+FROM lib32-waffle-builder AS lib32-waffle-build
 
 # Sync packages.
 COPY packages/waffle/ /scratch/waffle/
@@ -382,18 +416,12 @@ RUN chgrp -R nobody /scratch && chmod -R g+ws /scratch
 
 USER nobody
 
-# Perform the waffle build.
-WORKDIR /scratch/waffle
-# TODO(davidriley): Avoid --skippgpcheck.
-# Need --install for 32-bit build.
-RUN makepkg --skippgpcheck --noconfirm --install
-
 # Perform the lib32-waffle build.
 WORKDIR /scratch/lib32-waffle
 # TODO(davidriley): Avoid --skippgpcheck.
 RUN makepkg --skippgpcheck
 
-RUN cp /scratch/waffle/*.zst /scratch/lib32-waffle/*.zst "$ARTIFACTS"
+RUN cp /scratch/lib32-waffle/*.zst "$ARTIFACTS"
 
 #******************************************************************************
 #                                                              apitrace-builder
@@ -404,6 +432,7 @@ FROM gfx-builder AS apitrace-builder
 
 # Install packages already built.
 WORKDIR /scratch
+COPY --from=lib32-waffle-build /artifacts/*.zst pkgs/
 COPY --from=mesa-build /artifacts/*.zst pkgs/
 COPY --from=waffle-build /artifacts/*.zst pkgs/
 RUN pacman -U --noconfirm pkgs/*.zst \
@@ -527,6 +556,7 @@ FROM gfx-builder AS glbench-builder
 
 # Install packages already built.
 WORKDIR /scratch
+COPY --from=lib32-waffle-build /artifacts/*.zst pkgs/
 COPY --from=mesa-build /artifacts/*.zst pkgs/
 COPY --from=waffle-build /artifacts/*.zst pkgs/
 RUN pacman -U --noconfirm pkgs/*.zst \
@@ -579,6 +609,7 @@ FROM glbench-builder AS vkbench-builder
 
 # Install packages already built.
 WORKDIR /scratch
+COPY --from=lib32-waffle-build /artifacts/*.zst pkgs/
 COPY --from=mesa-build /artifacts/*.zst pkgs/
 COPY --from=waffle-build /artifacts/*.zst pkgs/
 RUN pacman -U --noconfirm pkgs/*.zst \
@@ -624,6 +655,7 @@ RUN cp *.zst "$ARTIFACTS"
 #******************************************************************************
 # deqp-builder has prerequisites to build deqp.
 FROM gfx-builder AS deqp-builder
+COPY --from=lib32-waffle-build /artifacts/*.zst pkgs/
 COPY --from=waffle-build /artifacts/*.zst pkgs/
 RUN pacman -U --noconfirm pkgs/*.zst \
     && pacman -S --noconfirm cargo
@@ -730,6 +762,7 @@ FROM gfx-builder AS piglit-builder
 ARG PIGLIT_COMMIT
 # Install packages already built.
 WORKDIR /scratch
+COPY --from=lib32-waffle-build /artifacts/*.zst pkgs/
 COPY --from=mesa-build /artifacts/*.zst pkgs/
 COPY --from=waffle-build /artifacts/*.zst pkgs/
 RUN pacman -U --noconfirm pkgs/*.zst \
@@ -1052,6 +1085,7 @@ WORKDIR /scratch
 COPY --from=apitrace-build /artifacts/*.zst pkgs/
 COPY --from=audiotest-build /artifacts/*.zst pkgs/
 COPY --from=lib32-mesa-build /artifacts/*.zst pkgs/
+COPY --from=lib32-waffle-build /artifacts/*.zst pkgs/
 COPY --from=lib32-wayland-build /artifacts/*.zst pkgs/
 COPY --from=mesa-build /artifacts/*.zst pkgs/
 COPY --from=vdf-build /artifacts/*.zst pkgs/
