@@ -599,6 +599,7 @@
   "python-setuptools": null,
   "python-six": null,
   "python-sqlalchemy": null,
+  "python-standard-cgi": null,
   "python-suds": null,
   "python-tomli": null,
   "python-tqdm": null,
