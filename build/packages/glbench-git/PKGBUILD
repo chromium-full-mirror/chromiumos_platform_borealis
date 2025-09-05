@@ -23,7 +23,7 @@ backup=()
 options=()
 install=
 _borealis_branch_tracked=('main')
-_borealis_current_ref=('commit=0f02b4c73848d05cb2cd9a2b2544f733cf97b55a')
+_borealis_current_ref=('commit=22724a417afd93d554f6156b2958a08c556286ce')
 source=("glbench::git+https://chromium.googlesource.com/chromiumos/platform/glbench#${_borealis_current_ref}"
         'LICENSE')
 noextract=()
